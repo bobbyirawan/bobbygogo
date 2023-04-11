@@ -1,45 +1,51 @@
 package bobbygogo
 
-// testing
-func QuickSort(Numbers []float64, as string) []float64 {
-	newArr := make([]float64, len(Numbers))
+/*
+# Quick Sort
 
-	copy(newArr, Numbers)
+1. number is value of array
 
-	sort(newArr, 0, len(Numbers)-1, as)
+2. as is type of sort : asc, desc
+*/
+func QuickSort[N float64 | float32 | int32 | int64 | int | string](numbers []N, as string) []N {
+	newArr := make([]N, len(numbers))
+
+	copy(newArr, numbers)
+
+	sort(newArr, 0, len(numbers)-1, as)
 
 	return newArr
 }
 
-func sort(Numbers []float64, start, end int, as string) {
+func sort[N float64 | float32 | int32 | int64 | int | string](numbers []N, start, end int, as string) {
 	if (end - start) < 1 {
 		return
 	}
 
-	pivot := Numbers[end]
+	pivot := numbers[end]
 	splitIndex := start
 
 	for i := start; i < end; i++ {
 		if as == "desc" {
-			if Numbers[i] > pivot {
-				temp := Numbers[splitIndex]
-				Numbers[splitIndex] = Numbers[i]
-				Numbers[i] = temp
+			if numbers[i] > pivot {
+				temp := numbers[splitIndex]
+				numbers[splitIndex] = numbers[i]
+				numbers[i] = temp
 				splitIndex++
 			}
 		} else {
-			if Numbers[i] < pivot {
-				temp := Numbers[splitIndex]
-				Numbers[splitIndex] = Numbers[i]
-				Numbers[i] = temp
+			if numbers[i] < pivot {
+				temp := numbers[splitIndex]
+				numbers[splitIndex] = numbers[i]
+				numbers[i] = temp
 				splitIndex++
 			}
 		}
 	}
 
-	Numbers[end] = Numbers[splitIndex]
-	Numbers[splitIndex] = pivot
+	numbers[end] = numbers[splitIndex]
+	numbers[splitIndex] = pivot
 
-	sort(Numbers, start, splitIndex-1, as)
-	sort(Numbers, splitIndex+1, end, as)
+	sort(numbers, start, splitIndex-1, as)
+	sort(numbers, splitIndex+1, end, as)
 }
